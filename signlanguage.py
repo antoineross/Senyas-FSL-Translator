@@ -123,7 +123,6 @@ accuracy_score(ytrue, yhat)
 
 print("Multilabel Confusion Matrix: %s\nAccuracy Score: %s" % (multilabel_confusion_matrix(ytrue, yhat), accuracy_score(ytrue, yhat)))
 
-# 8. Test in Real Time
 
 
 
