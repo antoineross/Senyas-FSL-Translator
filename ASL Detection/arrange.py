@@ -1,3 +1,5 @@
+# arranges the videos in the signed_videos folder into a format that can be used by the model from 1.mp4-n.mp4, where n is the number of videos in the folder.
+
 import os 
 input_dir = 'signed_videos'
 
