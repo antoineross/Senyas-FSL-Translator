@@ -110,7 +110,7 @@ model.add(Dense(actions.shape[0], activation='softmax'))
 model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=['categorical_accuracy'])
 model.fit(X_train, y_train, epochs=2000, callbacks=[tb_callback])
 model.summary()
-model.save('action.h5')
+model.save('action.h5') # Save the model for later use
 
 print("LSTM Model trained.")
 
@@ -122,7 +122,6 @@ multilabel_confusion_matrix(ytrue, yhat)
 accuracy_score(ytrue, yhat)
 
 print("Multilabel Confusion Matrix: %s\nAccuracy Score: %s" % (multilabel_confusion_matrix(ytrue, yhat), accuracy_score(ytrue, yhat)))
-
 
 
 
