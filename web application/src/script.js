@@ -78,7 +78,37 @@ function connect(ctx, connectors) {
         }
     }
 }
+
 let activeEffect = 'mask';
+let frameCounter = 0;
+const framesData = [];
+
+function frameCount(results) {
+  while (frameCounter < 30) {
+    const frameData = [
+      results.poseLandmarks,
+      results.leftHandLandmarks,
+      results.rightHandLandmarks
+    ];
+    framesData.push(frameData);
+    frameCounter++;
+  }
+
+  if (frameCounter === 30) {
+    // Reset the frame counter
+    frameCounter = 0;
+    // Process the collected 30 frames data
+    processFramesData();
+  }
+}
+
+function processFramesData() {
+  // Process the framesData array containing pose, left hand, and right hand data for the first 30 frames
+  // You can access the data using framesData[index][0] for pose, framesData[index][1] for left hand, and framesData[index][2] for right hand.
+  // Replace the following console.log statement with your desired processing logic.
+  console.log(framesData);
+}
+
 function onResults(results) {
     // Hide the spinner.
     document.body.classList.add('loaded');
@@ -164,9 +194,16 @@ function onResults(results) {
     drawingUtils.drawConnectors(canvasCtx, results.faceLandmarks, mpHolistic.FACEMESH_FACE_OVAL, { color: '#E0E0E0', lineWidth: 5 });
     drawingUtils.drawConnectors(canvasCtx, results.faceLandmarks, mpHolistic.FACEMESH_LIPS, { color: '#E0E0E0', lineWidth: 5 });
     canvasCtx.restore();
+
+    // Call the frameCount function to track frames and collect data
+    frameCount(results);
 }
+
+
+
 const holistic = new mpHolistic.Holistic(config);
 holistic.onResults(onResults);
+
 // Present a control panel through which the user can manipulate the solution
 // options.
 new controls
