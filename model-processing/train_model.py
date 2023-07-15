@@ -1,3 +1,5 @@
+##### This file is for `training` the model. The steps are as follows:
+
 # 1. `Import Dependencies`
 import os
 import numpy as np
