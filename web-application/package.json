@@ -1,0 +1,40 @@
+{
+  "name": "senyas-fsl-translator",
+  "version": "1.0.0",
+  "description": "## Purpose We implement a Filipino Sign Language Recognition model for both static and dynamic hand gestures using MediaPipe extracted landmarks.",
+  "main": "index.js",
+  "dependencies": {
+    "@tensorflow/tfjs": "0.15.3",
+    "babel-polyfill": "^6.26.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "senyas": "NODE_ENV=development parcel senyas/index.html --no-hmr --open",
+    "test-senyas": "NODE_ENV=development parcel test-senyas/index.html --no-hmr --open",
+    "mobilenet": "NODE_ENV=development parcel mobilenet/index.html --no-hmr --open"
+  },
+  "keywords": [],
+  "author": "Antoine Oropesa",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.0.0-0",
+    "@babel/plugin-transform-runtime": "^7.3.4",
+    "@babel/polyfill": "~7.2.5",
+    "@babel/preset-env": "~7.3.4",
+    "@babel/runtime": "~7.3.4",
+    "assert": "^2.0.0",
+    "buffer": "^6.0.3",
+    "clang-format": "~1.2.2",
+    "crypto-browserify": "^3.12.0",
+    "events": "^3.3.0",
+    "http-server": "^14.1.1",
+    "os-browserify": "^0.3.0",
+    "parcel": "~2.3.2",
+    "path-browserify": "^1.0.1",
+    "process": "^0.11.10",
+    "stream-browserify": "^3.0.0",
+    "url": "^0.11.1",
+    "util": "^0.12.5"
+  },
+  "browserslist": "> 0.25%, not dead"
+}
