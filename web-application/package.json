@@ -4,7 +4,7 @@
   "description": "## Purpose We implement a Filipino Sign Language Recognition model for both static and dynamic hand gestures using MediaPipe extracted landmarks.",
   "main": "index.js",
   "dependencies": {
-    "@tensorflow/tfjs": "0.15.3",
+    "@tensorflow/tfjs": "^0.15.3",
     "babel-polyfill": "^6.26.0"
   },
   "scripts": {

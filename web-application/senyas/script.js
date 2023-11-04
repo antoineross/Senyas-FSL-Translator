@@ -1,8 +1,19 @@
 import DeviceDetector from "https://cdn.skypack.dev/device-detector-js@2.2.10";
+import * as tf from '@tensorflow/tfjs';
+import React, { useEffect } from "https://cdn.skypack.dev/react";
+import ReactDOM from "https://cdn.skypack.dev/react-dom";
+
 // Usage: testSupport({client?: string, os?: string}[])
 // Client and os are regular expressions.
 // See: https://cdn.jsdelivr.net/npm/device-detector-js@2.2.10/README.md for
 // legal values for client and os
+
+(async () => {
+    const model1 = await tf.loadLayersModel( 
+    'https://senyasfsltranslator.s3.jp-tok.cloud-object-storage.appdomain.cloud/model.json'); 
+    model1.summary();
+})();
+
 testSupport([
     { client: 'Chrome' },
 ]);
@@ -83,31 +94,45 @@ let activeEffect = 'mask';
 let frameCounter = 0;
 const framesData = [];
 
+function getArrayShape(array) {
+    return [array.length, array[0].length];
+}
+
+
+
 function frameCount(results) {
-  while (frameCounter < 30) {
-    const frameData = [
-      results.poseLandmarks,
-      results.leftHandLandmarks,
-      results.rightHandLandmarks
-    ];
-    framesData.push(frameData);
-    frameCounter++;
-  }
+    while (frameCounter < 30) {
+      const pose = results.poseLandmarks ? results.poseLandmarks.map(landmark => [landmark.x, landmark.y, landmark.z, landmark.visibility]).flat() : new Array(33*4).fill(0);
+      const lh = results.leftHandLandmarks ? results.leftHandLandmarks.map(landmark => [landmark.x, landmark.y, landmark.z]).flat() : new Array(21*3).fill(0);
+      const rh = results.rightHandLandmarks ? results.rightHandLandmarks.map(landmark => [landmark.x, landmark.y, landmark.z]).flat() : new Array(21*3).fill(0);
+      
+      const frameData = [...pose, ...lh, ...rh];
+  
+      
+      framesData.push(frameData);
+      frameCounter++;
+    }
+  
+    if (frameCounter === 30) {
+      // Reset the frame counter
+      frameCounter = 0;
+      // Process the collected 30 frames data
+      console.log(getArrayShape(framesData));
+      processFramesData(framesData);
+      // Reset the framesData array
+      framesData.length = 0;
 
-  if (frameCounter === 30) {
-    // Reset the frame counter
-    frameCounter = 0;
-    // Process the collected 30 frames data
-    processFramesData();
+    }
   }
+  
+
+  async function processFramesData(framesData) {
+    const net = await tf.loadLayersModel('https://senyasfsltranslator.s3.jp-tok.cloud-object-storage.appdomain.cloud/model.json')
+    net.predict()
 }
 
-function processFramesData() {
-  // Process the framesData array containing pose, left hand, and right hand data for the first 30 frames
-  // You can access the data using framesData[index][0] for pose, framesData[index][1] for left hand, and framesData[index][2] for right hand.
-  // Replace the following console.log statement with your desired processing logic.
-  console.log(framesData);
-}
+
+
 
 function onResults(results) {
     // Hide the spinner.
