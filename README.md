@@ -24,14 +24,9 @@ Under `model processing`:
 2. `model_testing.ipynb`: This notebook allows the user to test the saved model in `model_training.ipynb`.
 
 ## Web Application Usage
-First install node.js and make sure that the version aligns with the version in `package.json`. Under the directory of './web application/src', run the following commands:
+You can visit the official website at [Official Website](https://senyas.vercel.app/). 
 
-```shell
-node server.js
-```
-
-Under `web application`:
-1. `src` is a directory that contains the web application files. 
+You can also run the web application locally. Check the official documentation for more details: [Official Documentation](https://senyas.vercel.app/docs/intro)
 
 ## License
 
